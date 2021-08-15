@@ -62,7 +62,7 @@ public class Main extends Application implements CalculationListener{
         for(int i = 0; i < 10; i++)
         {
         	Button digit = new Button(Integer.toString(i));
-        	digit.setPrefSize(450 / 4, 600 / 6);
+        	digit.setPrefSize(450 / 5, 600 / 6);
         	digits[i] = digit;
         }
         
@@ -77,25 +77,37 @@ public class Main extends Application implements CalculationListener{
 
         Pane canvas = new Pane();
         canvas.setStyle("-fx-background-color: gray;");
-        canvas.setPrefSize(digits[0].getPrefWidth() * 4, digits[0].getPrefHeight() * 2);
-        GridPane.setColumnSpan(canvas, 4);    
+        canvas.setPrefSize(digits[0].getPrefWidth() * 5, digits[0].getPrefHeight() * 2);
+        GridPane.setColumnSpan(canvas, 5);    
         GridPane.setRowSpan(canvas, 2);        
         root.add(canvas, 0, 0);
 
         root.add(digits[7], 0, 2);
         root.add(digits[8], 1, 2);
         root.add(digits[9], 2, 2);
+        Button divide = new Button("/");
+        divide.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
+        root.add(divide, 3, 2);
+        
         root.add(digits[4], 0, 3);
         root.add(digits[5], 1, 3);
         root.add(digits[6], 2, 3);
+        Button multiply = new Button("*");
+        multiply.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight()); 
+        root.add(multiply, 3, 3);
+        
         root.add(digits[1], 0, 4);
         root.add(digits[2], 1, 4);
         root.add(digits[3], 2, 4);
+        Button minus = new Button("-");
+        minus.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
+        root.add(minus, 3, 4);
+        
         
         Button back = new Button("<");
         GridPane.setRowSpan(back,2);
         back.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight() * 2);
-        root.add(back, 3, 2);
+        root.add(back, 4, 2);
         
         Button comma = new Button(",");
         comma.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
@@ -107,17 +119,21 @@ public class Main extends Application implements CalculationListener{
         equals.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
         root.add(equals, 2, 5);
         
+        Button plus = new Button("+");
+        plus.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
+        root.add(plus, 3, 5);
+        
         Button C = new Button("C");
         GridPane.setRowSpan(C,2);
         C.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight() * 2);
-        root.add(C, 3, 4);
+        root.add(C, 4, 4);
                         
         Scene scene = new Scene(root, 450,600);
         primaryStage.setScene(scene);
         
         for(int i = 0; i < 10; i++)
         {
-        	digits[i].setPrefSize(scene.getWidth() / 4, scene.getHeight() / 6);
+        	digits[i].setPrefSize(scene.getWidth() / 5, scene.getHeight() / 6);
         }
         
         primaryStage.show();
