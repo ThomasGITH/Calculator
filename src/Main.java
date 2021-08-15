@@ -85,14 +85,14 @@ public class Main extends Application implements CalculationListener{
         root.add(digits[7], 0, 2);
         root.add(digits[8], 1, 2);
         root.add(digits[9], 2, 2);
-        Button divide = new Button("/");
+        Button divide = new Button("÷");
         divide.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
         root.add(divide, 3, 2);
         
         root.add(digits[4], 0, 3);
         root.add(digits[5], 1, 3);
         root.add(digits[6], 2, 3);
-        Button multiply = new Button("*");
+        Button multiply = new Button("x");
         multiply.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight()); 
         root.add(multiply, 3, 3);
         
