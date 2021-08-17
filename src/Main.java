@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
  
 public class Main extends Application implements CalculationListener{
@@ -14,29 +13,12 @@ public class Main extends Application implements CalculationListener{
 	CalculationManager calc = new CalculationManager();	
 	
     public static void main(String[] args) {
-    	
-    	Main main = new Main();
-
-    	/*
-    	main.calc.addCalculationListener(main);
-		main.calc.addCharacter("-");
-		main.calc.addCharacter("2");
-		main.calc.addCharacter("8");
-		main.calc.addCharacter("+");
-		main.calc.addCharacter("5");
-		main.calc.addCharacter("6");
-		main.calc.addCharacter("/");
-		main.calc.addCharacter("3");
-		main.calc.addCharacter("9");
-		main.calc.calculate();
-		*/
-        launch(args);
-       
+        launch(args); //Launches JavaFX
     }
     
+    //JavaFX entry point
     @Override
     public void start(Stage primaryStage) {
-    	
     	calc.addCalculationListener(this);
     	
         primaryStage.setTitle("Calculator");
@@ -44,14 +26,6 @@ public class Main extends Application implements CalculationListener{
         
         double width = 450, height = 600;
         
-       // btn.setPrefSize(60, 60);
-       /* btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });*/
-                
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         
@@ -143,14 +117,12 @@ public class Main extends Application implements CalculationListener{
             gridPane.add(miscOperation, 4, 2 + i * 2);
         }
         
-        Scene scene = new Scene(gridPane, width, height);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(new Scene(gridPane, width, height));
         primaryStage.show();
     }
 
 	@Override
 	public void updateCalculation() {
-		// TODO Auto-generated method stub
 		System.out.println(calc.getCalculation());
 	}
 }
