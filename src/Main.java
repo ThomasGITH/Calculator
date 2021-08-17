@@ -1,23 +1,11 @@
- 
-import java.io.FileInputStream;
-
-import javafx.application.Application;
+ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
  
@@ -29,6 +17,7 @@ public class Main extends Application implements CalculationListener{
     	
     	Main main = new Main();
 
+    	/*
     	main.calc.addCalculationListener(main);
 		main.calc.addCharacter("-");
 		main.calc.addCharacter("2");
@@ -40,7 +29,7 @@ public class Main extends Application implements CalculationListener{
 		main.calc.addCharacter("3");
 		main.calc.addCharacter("9");
 		main.calc.calculate();
-		
+		*/
         launch(args);
        
     }
@@ -48,8 +37,13 @@ public class Main extends Application implements CalculationListener{
     @Override
     public void start(Stage primaryStage) {
     	
+    	calc.addCalculationListener(this);
+    	
         primaryStage.setTitle("Calculator");
         primaryStage.setResizable(false);
+        
+        double width = 450, height = 600;
+        
        // btn.setPrefSize(60, 60);
        /* btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -58,84 +52,99 @@ public class Main extends Application implements CalculationListener{
             }
         });*/
                 
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        
+        gridPane.setVgap(1);
+        gridPane.setHgap(1);
+        
+        Pane canvas = new Pane();
+        canvas.setStyle("-fx-background-color: gray;");
+        canvas.setPrefSize(width, height / 3);
+        GridPane.setColumnSpan(canvas, 5);    
+        GridPane.setRowSpan(canvas, 2);  
+        gridPane.add(canvas, 0, 0);
+        
         Button[] digits = new Button[10];
         for(int i = 0; i < 10; i++)
         {
         	Button digit = new Button(Integer.toString(i));
-        	digit.setPrefSize(450 / 5, 600 / 6);
+        	digit.setPrefSize(width / 5, height / 6);
         	digits[i] = digit;
         }
         
-        System.out.println(Screen.getPrimary().getBounds().getWidth());
-        
-        GridPane root = new GridPane();
-        root.setAlignment(Pos.CENTER);
-        
-        //root.setVgap(10);
-        //root.setHgap(10);
-        
-
-        Pane canvas = new Pane();
-        canvas.setStyle("-fx-background-color: gray;");
-        canvas.setPrefSize(digits[0].getPrefWidth() * 5, digits[0].getPrefHeight() * 2);
-        GridPane.setColumnSpan(canvas, 5);    
-        GridPane.setRowSpan(canvas, 2);        
-        root.add(canvas, 0, 0);
-
-        root.add(digits[7], 0, 2);
-        root.add(digits[8], 1, 2);
-        root.add(digits[9], 2, 2);
-        Button divide = new Button("÷");
-        divide.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
-        root.add(divide, 3, 2);
-        
-        root.add(digits[4], 0, 3);
-        root.add(digits[5], 1, 3);
-        root.add(digits[6], 2, 3);
-        Button multiply = new Button("x");
-        multiply.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight()); 
-        root.add(multiply, 3, 3);
-        
-        root.add(digits[1], 0, 4);
-        root.add(digits[2], 1, 4);
-        root.add(digits[3], 2, 4);
-        Button minus = new Button("-");
-        minus.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
-        root.add(minus, 3, 4);
-        
-        
-        Button back = new Button("<");
-        GridPane.setRowSpan(back,2);
-        back.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight() * 2);
-        root.add(back, 4, 2);
-        
-        Button comma = new Button(",");
-        comma.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
-        root.add(comma, 0, 5);
-
-        root.add(digits[0], 1, 5);
-        
-        Button equals = new Button("=");
-        equals.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
-        root.add(equals, 2, 5);
-        
-        Button plus = new Button("+");
-        plus.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight());
-        root.add(plus, 3, 5);
-        
-        Button C = new Button("C");
-        GridPane.setRowSpan(C,2);
-        C.setPrefSize(digits[0].getPrefWidth(), digits[0].getPrefHeight() * 2);
-        root.add(C, 4, 4);
-                        
-        Scene scene = new Scene(root, 450,600);
-        primaryStage.setScene(scene);
-        
-        for(int i = 0; i < 10; i++)
+        for(int j = 0; j < 3; j++)
         {
-        	digits[i].setPrefSize(scene.getWidth() / 5, scene.getHeight() / 6);
+            for(int i = 0; i < 3; i++)
+            {
+            	int index = 1 + j * 3 + i;
+            	gridPane.add(digits[index], i, 4 - j);
+            	digits[index].setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                    	calc.addCharacter(Integer.toString(index));
+                    }
+                });
+            }
+        }
+        gridPane.add(digits[0], 1, 5);
+        digits[0].setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	calc.addCharacter("0");
+            }
+        });
+        
+        String[] operations = {"÷", "x", "-", "+", ",", "="};
+        for(int i = 0; i < 6; i++)
+        {
+        	Button operation = new Button(operations[i]);
+        	int currentIndex = i;
+        	operation.setOnAction(i != 5 ? new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                	calc.addCharacter(operations[currentIndex]);
+                }
+            }:
+            	new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                	calc.calculate();
+                }
+            });
+        	
+        	operation.setPrefSize(width / 5, height / 6);
+        	if(i < 4) {
+        		gridPane.add(operation, 3, 2 + i);}
+        	else {
+        		gridPane.add(operation, i == 4 ? 0 : 2, 5);
+        	}
         }
         
+        for(int i = 0; i < 2; i++)
+        {
+        	Button miscOperation = new Button(i == 0 ? "<" : "C");
+        	
+        	miscOperation.setOnAction(i == 0 ? new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                	calc.deleteLastCharacter();
+                }
+            }:
+            	new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                	calc.clear();
+                }
+            });
+        	
+        	GridPane.setRowSpan(miscOperation, 2);
+            miscOperation.setPrefSize(width / 5, height / 3);
+            gridPane.add(miscOperation, 4, 2 + i * 2);
+        }
+        
+        Scene scene = new Scene(gridPane, width, height);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

@@ -44,12 +44,12 @@ public class CalculationManager {
 		
 		for(int i = 0; i < calculation.length(); i++)
 		{
-			if(calculation.charAt(i) == '*' || calculation.charAt(i) == '/' || calculation.charAt(i) == '+' || calculation.charAt(i) == '-')
+			if(calculation.charAt(i) == 'x' || calculation.charAt(i) == '÷' || calculation.charAt(i) == '+' || calculation.charAt(i) == '-')
 			{
 				blocks.add( i == 0 ? "0" : currentBlock);
 				//blocks.add(calculation.substring(i, i + 1));
-				if(calculation.charAt(i) == '*') {blocks.add("*");}
-				if(calculation.charAt(i) == '/') {blocks.add("/");}
+				if(calculation.charAt(i) == 'x') {blocks.add("x");}
+				if(calculation.charAt(i) == '÷') {blocks.add("÷");}
 				if(calculation.charAt(i) == '+') {blocks.add("+");}
 				if(calculation.charAt(i) == '-') {blocks.add("-");}
 				
@@ -72,11 +72,11 @@ public class CalculationManager {
 		{
 			for(int i = 0; i < blocks.size(); i++)
 			{
-				if(blocks.get(i) == "*" || blocks.get(i) == "/")
+				if(blocks.get(i) == "x" || blocks.get(i) == "÷")
 				{
 					float a = Float.parseFloat(blocks.get(i - 1));
 					float b = Float.parseFloat(blocks.get(i + 1));
-					float ans = blocks.get(i) == "*" ? (a * b) : (a / b);
+					float ans = blocks.get(i) == "x" ? (a * b) : (a / b);
 					blocks.remove(i + 1);
 					blocks.remove(i);
 					blocks.set(i - 1, Float.toString(ans));
