@@ -6,12 +6,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
  
 public class Main extends Application implements CalculationListener{
 	
-	CalculationManager calc = new CalculationManager();	
-	
+	private CalculationManager calc = new CalculationManager();	
+    private Text displayText = new Text(calc.getCalculation());
+
     public static void main(String[] args) {
         launch(args); //Launches JavaFX
     }
@@ -32,13 +35,24 @@ public class Main extends Application implements CalculationListener{
         gridPane.setVgap(1);
         gridPane.setHgap(1);
         
-        Pane canvas = new Pane();
-        canvas.setStyle("-fx-background-color: gray;");
-        canvas.setPrefSize(width, height / 3);
-        GridPane.setColumnSpan(canvas, 5);    
-        GridPane.setRowSpan(canvas, 2);  
-        gridPane.add(canvas, 0, 0);
+        Pane display = new Pane();
+        display.setStyle("-fx-background-color: gray;");
+        display.setPrefSize(width, height / 3);
+        GridPane.setColumnSpan(display, 5);    
+        GridPane.setRowSpan(display, 2);  
+        gridPane.add(display, 0, 0);
         
+        //displayText.setScaleX(3);
+        //displayText.setScaleY(3);
+        displayText.setX(width / 2);
+        displayText.setY(height / 6);
+        displayText.setScaleX(3);
+        displayText.setScaleY(3);
+        System.out.println(displayText.getLayoutX());
+        display.getChildren().add(displayText);
+        displayText.setTextAlignment(TextAlignment.LEFT);
+        System.out.println(displayText.getLayoutBounds());
+
         Button[] digits = new Button[10];
         for(int i = 0; i < 10; i++)
         {
@@ -124,5 +138,6 @@ public class Main extends Application implements CalculationListener{
 	@Override
 	public void updateCalculation() {
 		System.out.println(calc.getCalculation());
+		displayText.setText(calc.getCalculation());
 	}
 }
