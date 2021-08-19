@@ -114,8 +114,10 @@ public class CalculationManager {
 				}
 			}
 		}
-		if(Float.isInfinite(Float.parseFloat(blocks.get(0)))) {
-		calculation = "ERROR";
+		if(Float.parseFloat(blocks.get(0)) == 2147483647) {
+		calculation = "Cannot divide by zero";
+		listener.updateCalculation();
+		calculation = "0";
 		return;
 		}
 		
@@ -124,7 +126,7 @@ public class CalculationManager {
 		}
 		catch(Exception e)
 		{
-			calculation = "ERROR";
+			calculation = "Error: Invalid input";
 			System.err.println("Caught exception: " + e);
 			listener.updateCalculation();
 			calculation = "0";
