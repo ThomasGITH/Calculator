@@ -83,7 +83,7 @@ public class Main extends Application implements CalculationListener{
             }
         });
         
-        String[] operations = {"÷", "x", "-", "+", ",", "="};
+        String[] operations = {"÷", "x", "-", "+", ".", "="};
         for(int i = 0; i < 6; i++)
         {
         	Button operation = new Button(operations[i]);
@@ -137,7 +137,6 @@ public class Main extends Application implements CalculationListener{
 
 	@Override
 	public void updateCalculation() {
-		System.out.println(calc.getCalculation());
 		displayText.setText(calc.getCalculation());
 	}
 }

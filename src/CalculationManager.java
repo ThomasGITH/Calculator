@@ -32,7 +32,7 @@ public class CalculationManager {
 	
 	public void clear()
 	{
-		calculation = new String("0");
+		calculation = "0";
 		listener.updateCalculation();
 	}
 	
@@ -42,6 +42,7 @@ public class CalculationManager {
 		ArrayList<String> blocks = new ArrayList<String>();
 		String currentBlock = "";
 		
+		try {
 		for(int i = 0; i < calculation.length(); i++)
 		{
 			if(calculation.charAt(i) == 'x' || calculation.charAt(i) == '÷' || calculation.charAt(i) == '+' || calculation.charAt(i) == '-')
@@ -67,7 +68,7 @@ public class CalculationManager {
 					blocks.add(currentBlock);
 			}
 		}
-				
+		System.out.println(blocks);		
 		while(blocks.size() > 1)
 		{
 			for(int i = 0; i < blocks.size(); i++)
@@ -79,7 +80,15 @@ public class CalculationManager {
 					float ans = blocks.get(i) == "x" ? (a * b) : (a / b);
 					blocks.remove(i + 1);
 					blocks.remove(i);
-					blocks.set(i - 1, Float.toString(ans));
+					
+					if(Math.floor(ans) == ans)
+					{
+						blocks.set(i - 1, Integer.toString((int)ans));
+					}
+					else
+					{
+						blocks.set(i - 1, Float.toString(ans));
+					}					
 				}
 			}
 			
@@ -92,13 +101,34 @@ public class CalculationManager {
 					float ans = blocks.get(i) == "+" ? (a + b) : (a - b);
 					blocks.remove(i + 1);
 					blocks.remove(i);
-					blocks.set(i - 1, Float.toString(ans));
+					
+					if(Math.floor(ans) == ans)
+					{
+						blocks.set(i - 1, Integer.toString((int)ans));
+					}
+					else
+					{
+						blocks.set(i - 1, Float.toString(ans));
+					}
+					
 				}
 			}
 		}
+		if(Float.isInfinite(Float.parseFloat(blocks.get(0)))) {
+		calculation = "ERROR";
+		return;
+		}
 		
-		calculation = Float.isFinite(Float.parseFloat(blocks.get(0))) ? blocks.get(0) : "ERROR";		
+		calculation = blocks.get(0);		
 		listener.updateCalculation();
+		}
+		catch(Exception e)
+		{
+			calculation = "ERROR";
+			System.err.println("Caught exception: " + e);
+			listener.updateCalculation();
+			calculation = "0";
+		}
 		
 
 	}
