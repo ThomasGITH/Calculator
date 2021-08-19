@@ -44,15 +44,15 @@ public class Main extends Application implements CalculationListener{
         
         //displayText.setScaleX(3);
         //displayText.setScaleY(3);
-        displayText.setX(width / 2);
-        displayText.setY(height / 6);
         displayText.setScaleX(3);
         displayText.setScaleY(3);
-        System.out.println(displayText.getLayoutX());
+        displayText.setX(width / 2.8);
+        displayText.setY(height / 6);
         display.getChildren().add(displayText);
         displayText.setTextAlignment(TextAlignment.LEFT);
-        System.out.println(displayText.getLayoutBounds());
-
+        displayText.setWrappingWidth(width * 0.3);
+        System.out.println(displayText.getWrappingWidth());
+        
         Button[] digits = new Button[10];
         for(int i = 0; i < 10; i++)
         {
