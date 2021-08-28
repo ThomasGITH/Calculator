@@ -124,7 +124,7 @@ public class Main extends Application implements CalculationListener{
         
         for(int i = 0; i < 2; i++)
         {
-        	Button miscOperation = new Button(i == 0 ? "<" : "C");
+        	Button miscOperation = new Button(i == 0 ? "DEL" : "C");
         	miscOperation.setFont(buttonFont);
         	
         	miscOperation.setOnAction(i == 0 ? new EventHandler<ActionEvent>() {
