@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -37,7 +38,7 @@ public class Main extends Application implements CalculationListener{
         gridPane.setHgap(1);
         
         Pane display = new Pane();
-        display.setStyle("-fx-background-color: gray;");
+        display.setStyle("-fx-background-color: #9B9BA1;");
         display.setPrefSize(width, height / 3);
         GridPane.setColumnSpan(display, 5);    
         GridPane.setRowSpan(display, 2);  
@@ -57,10 +58,17 @@ public class Main extends Application implements CalculationListener{
         displayText.setWrappingWidth(width * 0.3);
         System.out.println(displayText.getWrappingWidth());
         
+        for(String item : Font.getFamilies()) {
+            System.out.println(item);
+        }
+        
+        Font buttonFont = Font.font("Verdana Pro", 25);
+
         Button[] digits = new Button[10];
         for(int i = 0; i < 10; i++)
         {
         	Button digit = new Button(Integer.toString(i));
+        	digit.setFont(buttonFont);
         	digit.setPrefSize(width / 5, height / 6);
         	digits[i] = digit;
         }
@@ -91,6 +99,7 @@ public class Main extends Application implements CalculationListener{
         for(int i = 0; i < 6; i++)
         {
         	Button operation = new Button(operations[i]);
+        	operation.setFont(buttonFont);
         	int currentIndex = i;
         	operation.setOnAction(i != 5 ? new EventHandler<ActionEvent>() {
                 @Override
@@ -116,6 +125,7 @@ public class Main extends Application implements CalculationListener{
         for(int i = 0; i < 2; i++)
         {
         	Button miscOperation = new Button(i == 0 ? "<" : "C");
+        	miscOperation.setFont(buttonFont);
         	
         	miscOperation.setOnAction(i == 0 ? new EventHandler<ActionEvent>() {
                 @Override
