@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -24,7 +25,7 @@ public class Main extends Application implements CalculationListener{
     public void start(Stage primaryStage) {
     	calc.addCalculationListener(this);
     	
-        primaryStage.setTitle("Calculator");
+        primaryStage.setTitle("Calculator v1.0");
         primaryStage.setResizable(false);
         
         double width = 450, height = 600;
@@ -41,9 +42,12 @@ public class Main extends Application implements CalculationListener{
         GridPane.setColumnSpan(display, 5);    
         GridPane.setRowSpan(display, 2);  
         gridPane.add(display, 0, 0);
+                
+        Font font = Font.loadFont("file:src//fonts//digital-7.ttf", 25);
         
-        //displayText.setScaleX(3);
-        //displayText.setScaleY(3);
+        //displayText.setFont(Font.font("Agency FB"));
+        displayText.setFont(font);
+
         displayText.setScaleX(3);
         displayText.setScaleY(3);
         displayText.setX(width / 2.8);
@@ -83,7 +87,7 @@ public class Main extends Application implements CalculationListener{
             }
         });
         
-        String[] operations = {"÷", "x", "-", "+", ".", "="};
+        String[] operations = {"/", "x", "-", "+", ".", "="};
         for(int i = 0; i < 6; i++)
         {
         	Button operation = new Button(operations[i]);
