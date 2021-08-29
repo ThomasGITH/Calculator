@@ -18,22 +18,19 @@ public class Main extends Application implements CalculationListener{
     private Text displayText = new Text(calc.getCalculation());
 
     public static void main(String[] args) {
-        launch(args); //Launches JavaFX
+        launch(args);
     }
     
-    //JavaFX entry point
     @Override
     public void start(Stage primaryStage) {
     	calc.addCalculationListener(this);
     	
-        primaryStage.setTitle("Calculator v1.0");
-        primaryStage.setResizable(false);
-        
         double width = 450, height = 600;
+        primaryStage.setTitle("Simple Calculator v1.0");
+        primaryStage.setResizable(false);
         
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        
         gridPane.setVgap(1);
         gridPane.setHgap(1);
         
@@ -43,12 +40,9 @@ public class Main extends Application implements CalculationListener{
         GridPane.setColumnSpan(display, 5);    
         GridPane.setRowSpan(display, 2);  
         gridPane.add(display, 0, 0);
-                
-        Font font = Font.loadFont("file:src//fonts//digital-7.ttf", 25);
         
-        //displayText.setFont(Font.font("Agency FB"));
-        displayText.setFont(font);
-
+        Font displayTextFont = Font.loadFont(getClass().getResourceAsStream("fonts/digital-7.ttf"), 25);
+        displayText.setFont(displayTextFont);
         displayText.setScaleX(3);
         displayText.setScaleY(3);
         displayText.setX(width / 2.8);
@@ -56,11 +50,6 @@ public class Main extends Application implements CalculationListener{
         display.getChildren().add(displayText);
         displayText.setTextAlignment(TextAlignment.LEFT);
         displayText.setWrappingWidth(width * 0.3);
-        System.out.println(displayText.getWrappingWidth());
-        
-        for(String item : Font.getFamilies()) {
-            System.out.println(item);
-        }
         
         Font buttonFont = Font.font("Verdana Pro", 25);
 
@@ -87,6 +76,7 @@ public class Main extends Application implements CalculationListener{
                 });
             }
         }
+        
         gridPane.add(digits[0], 1, 5);
         digits[0].setOnAction(new EventHandler<ActionEvent>() {
             @Override
