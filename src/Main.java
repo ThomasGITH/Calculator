@@ -48,7 +48,7 @@ public class Main extends Application implements CalculationListener{
         displayText.setX(width / 2.8);
         displayText.setY(height / 6);
         display.getChildren().add(displayText);
-        displayText.setTextAlignment(TextAlignment.LEFT);
+        displayText.setTextAlignment(TextAlignment.RIGHT);
         displayText.setWrappingWidth(width * 0.3);
         
         Font buttonFont = Font.font("Verdana Pro", 25);
