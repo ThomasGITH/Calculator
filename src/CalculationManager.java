@@ -47,34 +47,29 @@ public class CalculationManager {
 		try {
 		for(int i = 0; i < calculation.length(); i++)
 		{
-			if(calculation.charAt(i) == 'x'
-			|| calculation.charAt(i) == '/' 
-			|| calculation.charAt(i) == '+' 
-			|| calculation.charAt(i) == '-')
-			{
-				blocks.add( i == 0 ? "0" : currentBlock);
-				if(calculation.charAt(i) == 'x') {blocks.add("x");}
-				if(calculation.charAt(i) == '/') {blocks.add("/");}
-				if(calculation.charAt(i) == '+') {blocks.add("+");}
-				if(calculation.charAt(i) == '-') {blocks.add("-");}
-				
-				currentBlock = "";
+			char currentCharacter = calculation.charAt(i);
+			
+			if(currentCharacter == '.') {
+				currentBlock += currentCharacter;
+				continue;
 			}
-			else
-			{
-				if(calculation.charAt(i) != '.') {
-					currentBlock += Character.getNumericValue(calculation.charAt(i));
-				}
-				else {
-					currentBlock += calculation.charAt(i);
-				}
+			if(Character.isDigit(currentCharacter)) {
+				currentBlock += Character.getNumericValue(currentCharacter);
 				if(i == (calculation.length() - 1))
 					blocks.add(currentBlock);
+				continue;
 			}
+			
+			blocks.add( i == 0 ? "0" : currentBlock);
+			if(currentCharacter == 'x') {blocks.add("x");}
+			if(currentCharacter == '/') {blocks.add("/");}
+			if(currentCharacter == '+') {blocks.add("+");}
+			if(currentCharacter == '-') {blocks.add("-");}
+			currentBlock = "";
 		}
 		
 		while(blocks.size() > 1)
-		{
+		{			
 			for(int i = 0; i < blocks.size(); i++)
 			{
 				if(blocks.get(i) == "x" || blocks.get(i) == "/")
@@ -88,11 +83,9 @@ public class CalculationManager {
 					if(Math.floor(ans) == ans)
 					{
 						blocks.set(i - 1, Integer.toString((int)ans));
+						continue;
 					}
-					else
-					{
-						blocks.set(i - 1, Double.toString(ans));
-					}					
+					blocks.set(i - 1, Double.toString(ans));				
 				}
 			}
 			
@@ -109,12 +102,9 @@ public class CalculationManager {
 					if(Math.floor(ans) == ans)
 					{
 						blocks.set(i - 1, Integer.toString((int)ans));
+						continue;
 					}
-					else
-					{
-						blocks.set(i - 1, Double.toString(ans));
-					}
-					
+					blocks.set(i - 1, Double.toString(ans));
 				}
 			}
 		}
@@ -136,8 +126,5 @@ public class CalculationManager {
 			listener.updateCalculation();
 			calculation = "0";
 		}
-		
-
 	}
-	
 }

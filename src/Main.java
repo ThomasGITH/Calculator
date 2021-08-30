@@ -51,8 +51,7 @@ public class Main extends Application implements CalculationListener{
         displayText.setTextAlignment(TextAlignment.RIGHT);
         displayText.setWrappingWidth(width * 0.3);
         
-        Font buttonFont = Font.font("Verdana Pro", 25);
-
+        Font buttonFont = Font.loadFont(getClass().getResourceAsStream("fonts/VerdanaPro.ttf"), 25);
         Button[] digits = new Button[10];
         for(int i = 0; i < 10; i++)
         {
